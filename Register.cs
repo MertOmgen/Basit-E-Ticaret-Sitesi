@@ -13,14 +13,23 @@ namespace Örnek_7
     {
         System.Globalization.CultureInfo cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
 
-        string kullaniciadi = string.Empty,
-               sifre = string.Empty,
-               email = string.Empty,
-               ad = string.Empty,
-               soyad = string.Empty;
+        //string /*kullaniciadi = string.Empty,*/
+        //       sifre = string.Empty,
+        //       email = string.Empty,
+        //       ad = string.Empty,
+        //       soyad = string.Empty;
+        public string kullaniciadi { get; set; }
+        public string sifre { get; set; }
+        public string email { get; set; }
+        public string ad { get; set; }
+        public string soyad { get; set; }
 
-        DateTime date = new DateTime();
-        int dogumTarihi = default(int);
+
+
+        DateTime dogumTarihi;
+        int kücükYil = 1950, büyükYil = 2100;
+        int yil, ay, gun;
+        //int dogumTarihi = default(int);
 
 
         bool kontrolKullaniciAdi = default(bool),
@@ -116,11 +125,24 @@ namespace Örnek_7
                     }
                     if (kontrolDogumTarihi == false)
                     {
-                        Console.Write("Doğum Yılınız : ");
-                        dogumTarihi = Convert.ToInt32(Console.ReadLine());
+                        
+                        Console.Write("Doğum Yıl : ");
+                        yil = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("\nDoğum Ay : ");
+                        ay = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("\nDoğum Gün : ");
+                        gun= Convert.ToInt32(Console.ReadLine());
+
+                        dogumTarihi = new DateTime(
+                            
+                            year: yil,
+                            month: ay,
+                            day: gun
+                            );
+                        //dogumTarihi = Convert.ToDateTime(Console.ReadLine());
                         kontrolDogumTarihi = true;
                         Bosluk();
-                        if (dogumTarihi <= 1920 || dogumTarihi >= DateTime.Now.Year)
+                        if (yil < kücükYil || yil > büyükYil)
                         {
                             Console.WriteLine("Lütfen Doğum Tarihini Tekrar Giriniz.!");
                             kontrolDogumTarihi = false;
@@ -138,7 +160,7 @@ namespace Örnek_7
                         dogumTarihi: dogumTarihi
                         );
 
-                } while (!regexItem.IsMatch(kullaniciadi) || !regexItem.IsMatch(sifre) || kontrol == email.Contains("@") || !regexItem1.IsMatch(ad) || !regexItem1.IsMatch(soyad) || dogumTarihi < 1920 || dogumTarihi >= DateTime.Now.Year);
+                } while (!regexItem.IsMatch(kullaniciadi) || !regexItem.IsMatch(sifre) || kontrol == email.Contains("@") || !regexItem1.IsMatch(ad) || !regexItem1.IsMatch(soyad) || yil < kücükYil || yil > büyükYil);
             }
             catch(Exception ex)
             {
@@ -147,12 +169,14 @@ namespace Örnek_7
                 Thread.Sleep(2000);
                 Environment.Exit(0);
             }
-            
-            
+
+            Console.WriteLine("Giriş Ekranına Yönlendiriliyorsunuz Lütfen Bekleyin...");
+            Bosluk();
+            Thread.Sleep(3000);
 
 
         }
-        public void kullaniciBilgiler(string ad,string soyad,string kullaniciAdi,string sifre,string email,int dogumTarihi)
+        public void kullaniciBilgiler(string ad,string soyad,string kullaniciAdi,string sifre,string email,DateTime dogumTarihi)
         {
             System.Globalization.TextInfo textInfo = cultureInfo.TextInfo;
 

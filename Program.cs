@@ -12,7 +12,9 @@ namespace Örnek_7
         {
             //E-Ticaret Sitesi Login,Ürün ve Sepet
 
-            Register reg = new Register();
+            //Register reg = new Register();
+
+            Login login = new Login();
 
 
             Console.ReadKey();
